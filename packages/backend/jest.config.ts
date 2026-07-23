@@ -20,6 +20,8 @@ const config: JestConfigWithTsJest = {
   },
 
   // Handle module import extensions if you write standard ESM relative imports
+  moduleDirectories: ['node_modules', '<rootDir>/node_modules'],
+
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },

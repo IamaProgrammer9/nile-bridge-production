@@ -13,9 +13,9 @@
     "db:generate": "npm run db:generate --workspace=packages/backend",
     "db:migrate": "npm run migrate --workspace=packages/backend",
     "db:seed": "npm run db:seed --workspace=packages/backend",
-    "test": "npm install && npm run test --workspace=packages/backend && npm run test --workspace=packages/frontend",
-    "test:backend": "npm run test --workspace=packages/backend",
-    "test:frontend": "npm run test --workspace=packages/frontend"
+    "test": "npm run db:generate && npm run test --workspace=packages/backend && npm run test --workspace=packages/frontend",
+    "test:backend": "npm run db:generate && npm run test --workspace=packages/backend",
+    "test:frontend": "npm install && npm run test --workspace=packages/frontend"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"

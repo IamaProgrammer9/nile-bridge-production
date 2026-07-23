@@ -44,11 +44,7 @@ import { transporter } from '../../mail/config.js';
              subject: 'Welcome to NileBridge',
              text: `Hello ${name}, welcome to NileBridge!`
          };
-         transporter.sendMail(mailOptions, (error, info) => {
-             if (error) {
-                 return console.log('Error sending email: ', error);
-             }
-         });
+         transporter.sendMail(mailOptions, (error, info) => {});
 
      } catch (error) {
          console.error('Failed to send welcome email:', error);

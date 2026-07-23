@@ -1,12 +1,13 @@
 import { createProduct } from "../../api/products";
 import LogoBlack from "../../assets/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     useProducts,
     type ProductCategory,
 } from "../../components/contexts/products-context.tsx";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { IoIosWarning } from "react-icons/io";
+import { useAuth } from "../contexts/auth-context.tsx";
 
 export function AdminDashboard() {
     const [name, setName] = useState("");
@@ -16,8 +17,21 @@ export function AdminDashboard() {
     const [category, setCategory] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const auth = useAuth();
 
     const { categories } = useProducts();
+
+    useEffect(() => {
+        console.log(true);
+        if (!auth.isAuthenticated) {
+            navigate("/");
+            return;
+        }
+        if (!auth.user.isAdmin) {
+            navigate("/");
+        }
+    }, [auth.isAuthenticated, auth.user, navigate]);
 
     const handleFileChange = (event: any) => {
         // Convert FileList to a standard Array
@@ -63,7 +77,7 @@ export function AdminDashboard() {
         <div className="w-full h-full overflow-x flex flex-col justify-center items-center gap-3">
             <div className="flex justify-center items-center flex-col gap-2">
                 <div className="text-4xl font-semibold mb-2">
-                    Admin Dashboard
+                    Admin Dashboarddd
                 </div>
                 <div className="w-120 h-fit bg-white rounded-2xl flex flex-col p-4 gap-2">
                     <div className="flex justify-center items-center">

@@ -46,6 +46,16 @@ export function CartPage() {
                     </div>
                 ))}
             </div>
+            <div className="text-3xl font-bold flex items-center">
+                <span>
+                    Total: ${cartItems.reduce((acc, item) => acc + item.price, 0)}
+                </span>
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                    onClick={() => alert("Order coming to your house Inshaa Allah")}>
+                    Order
+                </button>
+            </div>
         </div>
     );
 }
