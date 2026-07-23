@@ -44,7 +44,9 @@ services:
       - postgres_data:/var/lib/postgresql
 
   backend:
-    build: ./packages/backend
+    build:
+      context: ./packages/backend
+      pull: true
     container_name: backend
     ports:
       - "3000:3000"
@@ -59,7 +61,9 @@ services:
       - mongodb
 
   frontend:
-    build: ./packages/frontend
+    build:
+      context: ./packages/frontend
+      pull: true
     container_name: frontend
     ports:
       - "5173:5173"

@@ -77,7 +77,7 @@ export function AdminDashboard() {
         <div className="w-full h-full overflow-x flex flex-col justify-center items-center gap-3">
             <div className="flex justify-center items-center flex-col gap-2">
                 <div className="text-4xl font-semibold mb-2">
-                    Admin Dashboarddd
+                    Admin Dashboard
                 </div>
                 <div className="w-120 h-fit bg-white rounded-2xl flex flex-col p-4 gap-2">
                     <div className="flex justify-center items-center">
