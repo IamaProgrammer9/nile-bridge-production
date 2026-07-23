@@ -1,0 +1,4 @@
+node_modules
+dist
+.env*
+src/components/__tests__
