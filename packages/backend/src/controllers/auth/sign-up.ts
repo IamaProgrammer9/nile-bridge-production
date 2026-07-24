@@ -45,11 +45,7 @@ export async function signUpController(req: Request, res: Response): Promise<voi
             text: `Hello ${name}, welcome to NileBridge!`
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error('Error sending email: ', error);
-            }
-        });
+        transporter.sendMail(mailOptions, (error, info) => { });
 
     } catch (error) {
         console.error('Failed to send welcome email:', error);
