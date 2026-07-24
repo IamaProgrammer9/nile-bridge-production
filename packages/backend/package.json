@@ -11,7 +11,7 @@
     "db:mongo:push": "npx prisma db push --schema=prisma-mongodb/schema.prisma",
     "db:generate": "npx prisma generate && npx prisma generate --schema=prisma-mongodb/schema.prisma && cp -r node_modules/.prisma ../../node_modules/.prisma 2>/dev/null; cp -r node_modules/@prisma/mongodb-client ../../node_modules/@prisma/mongodb-client 2>/dev/null; true",
     "db:test:push": "dotenv -e .env.test -- npx prisma db push --accept-data-loss && cp -r node_modules/.prisma ../../node_modules/.prisma 2>/dev/null; true",
-    "pretest": "npm run db:test:push && dotenv -e .env.test -- npx prisma db seed",
+    "pretest": "npm run generate npm run db:test:push && dotenv -e .env.test -- npx prisma db seed",
     "test": "DOTENV_CONFIG_PATH=.env.test NODE_OPTIONS=\"--experimental-vm-modules -r dotenv/config\" npx jest --runInBand --detectOpenHandles",
     "generate": "npx prisma generate --schema=./prisma-mongodb/schema.prisma && npx prisma generate --schema=./prisma/schema.prisma",
     "migrate": "npx prisma migrate dev --schema=./prisma/schema.prisma && npx prisma migrate deploy --schema=./prisma/schema.prisma",
