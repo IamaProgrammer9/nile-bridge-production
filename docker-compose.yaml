@@ -1,0 +1,75 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--quiet" ]
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: mongosh --eval "db.adminCommand('ping')" --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  mongodb-rs-init:
+    image: mongo:7.0
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: "no"
+    command: >
+      mongosh --host mongodb:27017 --eval "
+        try {
+          rs.status();
+        } catch (e) {
+          rs.initiate({
+            _id: 'rs0',
+            members: [{ _id: 0, host: 'mongodb:27017' }]
+          });
+        }
+      "
+
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: nile-bridge
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  backend:
+    build:
+      context: ./packages/backend
+      pull: true
+    container_name: backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./packages/backend/.env
+    environment:
+      DATABASE_URL: "postgresql://postgres:root@postgres:5432/nile-bridge?schema=public"
+      MONGODB_URL: "mongodb://mongodb:27017/myDatabase"
+    command: sh -c "npx prisma db push && npm run db:seed && npm start"
+    depends_on:
+      - postgres
+      - mongodb
+
+  frontend:
+    build:
+      context: ./packages/frontend
+      pull: true
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  mongo_data:

@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/mongodb-client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URL")
+}
+
+// Example MongoDB model
+model ProductReview {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  rating    Float
+  comment   String?
+  createdAt DateTime @default(now())
+  userName  String
+
+  // References to the PostgreSQL database:
+  userId    Int
+  productId Int
+
+  @@unique([userId, productId])
+}
