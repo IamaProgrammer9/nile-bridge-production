@@ -47,3 +47,5 @@ AI was only used to explore/understand new topics, debug code, fix errors, or wr
 Press on your profile and go to cart to see your cart or place an order.
 ## Logging out
 Press on your profile press logout to logout.
+## Notes
+1. Some changes were made after the deadline so that the testing command works.
